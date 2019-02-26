@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>User</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="https://adminlte.io/themes/dev/AdminLTE/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="wrapper">
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>User Registration</h1>
+    </section>
+    <section class="content">
+        <form role="form">
+            <fieldset class="card-body">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" name="name" placeholder="r-sonoda" id="name" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="keys">Authorized Key *</label>
+                    <textarea name="keys" placeholder="ssh-rsa AAA ..." id="keys" required class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="group_id">Primary Group *</label>
+                    <select name="group_id" id="group_id" required class="form-control select2">
+                        <option value="auto" selected>[ Auto generate ]</option>
+                        <option value="2000">engineers</option>
+                        <option value="2001">designers</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id">User Id</label>
+                    <div class="form-check auto_id">
+                        <input type="checkbox" id="auto_id" class="form-check-input" checked>
+                        <label class="form-check-label" for="auto_id">Auto generate</label>
+                    </div>
+                    <input type="text" name="id" placeholder="1001" id="id" pattern="^\d+$" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" name="full_name" placeholder="園田 亮平" id="full_name" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            Details
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="detail">
+                            <div class="form-group">
+                                <label for="shell">Shell</label>
+                                <input type="text" name="shell" placeholder="/bin/bash" id="shell" value="/bin/bash" class="form-control">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="directory">Home Directory</label>
+                                <input type="text" name="directory" placeholder="/home/name" id="directory" class="form-control">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="gecos">Comment</label>
+                                <textarea id="gecos" name="gecos" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="groups">Other Groups</label>
+                                <select name="groups" id="groups" multiple required class="form-control select2">
+                                    <option value="2000">engineers</option>
+                                    <option value="2001">designers</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="link_users">Link Users</label>
+                                <select name="link_users" id="link_users" multiple required class="form-control select2">
+                                    <option value="2000">hogehoge</option>
+                                    <option value="2002">unko</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="additional_keys">Other Keys</label>
+                                <textarea name="additional_keys" id="additional_keys" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="button" class="btn btn-default pull-right">Cancel</button>
+                </div>
+            </fieldset>
+        </form>
+    </section>
+</section>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const name = document.getElementById('name');
+        const directory = document.getElementById('directory');
+        const id = document.getElementById('id');
+        const auto_id_check = document.getElementById('auto_id');
+        name.addEventListener('input', () => {
+            directory.value = `/home/${name.value}`;
+        });
+        const autoIdCheck = () => {
+            if (auto_id_check.checked) {
+                id.setAttribute('disabled', 'disabled');
+            } else {
+                id.removeAttribute('disabled');
+            }
+        };
+        document.querySelector('.auto_id').addEventListener('click', autoIdCheck);
+        autoIdCheck();
+    });
+</script>
+</body>
+</html>
